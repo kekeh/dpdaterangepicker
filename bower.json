@@ -1,0 +1,38 @@
+{
+  "name": "dpdaterangepicker",
+  "description": "Date range picker - AngularJS reusable UI component",
+  "version": "0.0.1",
+  "homepage": "http://kekeh.github.io/dpdaterangepicker",
+  "license": "MIT",
+  "authors": [
+    "kekeh"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/kekeh/dpdaterangepicker.git"
+  },
+  "main": [
+    "dist/min/dpdaterangepicker-0.0.1.min.css",
+    "dist/min/dpdaterangepicker-0.0.1.min.js"
+  ],
+  "keywords": [
+    "AngularJS",
+    "dpdaterangepicker",
+    "date range picker",
+    "date picker"
+  ],
+  "ignore": [
+    "**/.*",
+    "Gruntfile.js",
+    "karma.conf.js",
+    "node_modules",
+    "bower_components",
+    "css",
+    "js",
+    "templates",
+    "test"
+  ],
+  "dependencies": {
+    "angular": "1.3.x"
+  }
+}
