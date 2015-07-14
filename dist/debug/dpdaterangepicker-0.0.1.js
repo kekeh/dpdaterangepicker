@@ -199,7 +199,7 @@ angular.module('dpdaterangepicker', ["template-dpdaterangepicker-0.0.1.html"])
 
                 scope.toEndDate = function () {
                     // To end date selection
-                    reset(formatDate(selectedBeginDate) + scope.config.DATES_SEPARATOR + scope.options.endDateText, false);
+                    reset(scope.options.endDateText, false);
                 };
 
                 scope.accept = function () {
