@@ -12,7 +12,8 @@ angular.module('dpdaterangepicker', [])
         PREV_MONTH: 1,
         CURR_MONTH: 2,
         NEXT_MONTH: 3,
-        DATES_SEPARATOR: ' - '
+        DATES_SEPARATOR: ' - ',
+        COLON: ': '
     })
 
 /**
@@ -103,7 +104,7 @@ angular.module('dpdaterangepicker', [])
                 scope.toBeginDate = function () {
                     // Back to begin date selection
                     scope.selectedDate = selectedBeginDate;
-                    scope.titleTxt = formatDate(selectedBeginDate);
+                    scope.titleTxt = scope.options.beginDateText + scope.config.COLON + formatDate(selectedBeginDate);
                     scope.beginDateStep = true;
                     scope.rangeOk = true;
                 };
@@ -179,7 +180,7 @@ angular.module('dpdaterangepicker', [])
                     scope.selectedDate = {day: val.day, month: val.month, year: val.year};
                     if (scope.beginDateStep) {
                         scope.rangeOk = true;
-                        scope.titleTxt = formatDate(val);
+                        scope.titleTxt = scope.options.beginDateText + scope.config.COLON + formatDate(val);
                         selectedBeginDate = angular.copy(scope.selectedDate);
                     }
                     else {

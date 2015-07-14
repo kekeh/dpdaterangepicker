@@ -86,7 +86,7 @@
 
 .dpdaterangepicker .dptitleareatxt {
     height: 26px;
-    margin-top: 6px;
+    line-height: 26px;
     font-size: 14px;
 }
 
@@ -215,7 +215,8 @@
 .dpdaterangepicker .dpheadermonthtxt,
 .dpdaterangepicker .dpheaderyeartxt,
 .dpdaterangepicker .dpheadertodaybtn,
-.dpdaterangepicker .dpselection {
+.dpdaterangepicker .dpselection,
+.dpdaterangepicker .dpfooterbtn {
     color: #000;
 }
 
@@ -277,7 +278,7 @@
 
 .dpdaterangepicker .dpbtndisable {
     cursor: default;
-    opacity: 0.8;
+    opacity: 0.5;
 }
 
 @font-face {
