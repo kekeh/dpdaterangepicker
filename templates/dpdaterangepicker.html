@@ -1,11 +1,11 @@
 <div class="dpdaterangepicker">
-    <div class="dpselectiongroup">
-        <span class="dpselection" ng-style="{'line-height': elemHeight + 'px'}" ng-click="picker()">{{selectedRangeTxt}}</span>
+    <div class="dpselectiongroup" ng-click="picker($event)">
+        <span class="dpselection" ng-style="{'line-height': elemHeight + 'px'}" ng-click="picker($event);">{{selectedRangeTxt}}</span>
         <span class="dpselbtngroup" ng-style="{'height': elemHeight + 'px'}">
-            <button class="dpbtnclear" ng-show="selectedRangeTxt.length > 0" ng-click="selectedRangeTxt='';selectedDate={day:0,month:0,year:0}">
+            <button class="dpbtnclear" ng-show="selectedRangeTxt.length > 0" ng-click="clearSelection($event)">
                 <span class="icon icon-cross"></span>
             </button>
-            <button class="dpbtnpicker" ng-click="picker()">
+            <button class="dpbtnpicker" ng-click="picker($event)">
                 <span class="icon icon-calendar"></span>
             </button>
         </span>

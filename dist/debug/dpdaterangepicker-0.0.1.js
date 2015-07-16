@@ -5,20 +5,20 @@
 *  Author: kekeh 
 *  Homepage: http://kekeh.github.io/dpdaterangepicker 
 *  License: MIT 
-*  Date: 2015-07-14 
+*  Date: 2015-07-16 
 */ 
 angular.module('template-dpdaterangepicker-0.0.1.html', ['templates/dpdaterangepicker.html']);
 
 angular.module("templates/dpdaterangepicker.html", []).run(["$templateCache", function($templateCache) {
   $templateCache.put("templates/dpdaterangepicker.html",
     "<div class=\"dpdaterangepicker\">\n" +
-    "    <div class=\"dpselectiongroup\">\n" +
-    "        <span class=\"dpselection\" ng-style=\"{'line-height': elemHeight + 'px'}\" ng-click=\"picker()\">{{selectedRangeTxt}}</span>\n" +
+    "    <div class=\"dpselectiongroup\" ng-click=\"picker($event)\">\n" +
+    "        <span class=\"dpselection\" ng-style=\"{'line-height': elemHeight + 'px'}\" ng-click=\"picker($event);\">{{selectedRangeTxt}}</span>\n" +
     "        <span class=\"dpselbtngroup\" ng-style=\"{'height': elemHeight + 'px'}\">\n" +
-    "            <button class=\"dpbtnclear\" ng-show=\"selectedRangeTxt.length > 0\" ng-click=\"selectedRangeTxt='';selectedDate={day:0,month:0,year:0}\">\n" +
+    "            <button class=\"dpbtnclear\" ng-show=\"selectedRangeTxt.length > 0\" ng-click=\"clearSelection($event)\">\n" +
     "                <span class=\"icon icon-cross\"></span>\n" +
     "            </button>\n" +
-    "            <button class=\"dpbtnpicker\" ng-click=\"picker()\">\n" +
+    "            <button class=\"dpbtnpicker\" ng-click=\"picker($event)\">\n" +
     "                <span class=\"icon icon-calendar\"></span>\n" +
     "            </button>\n" +
     "        </span>\n" +
@@ -224,8 +224,9 @@ angular.module('dpdaterangepicker', ["template-dpdaterangepicker-0.0.1.html"])
                     }
                 };
 
-                scope.picker = function () {
+                scope.picker = function (event) {
                     // Show or hide selector
+                    event.stopPropagation();
                     scope.showSelector = !scope.showSelector;
                     if (scope.showSelector) {
                         // Reset values
@@ -248,6 +249,13 @@ angular.module('dpdaterangepicker', ["template-dpdaterangepicker-0.0.1.html"])
                         // Create current month
                         createMonth(m, y);
                     }
+                };
+
+                scope.clearSelection = function (event) {
+                    // Clear selected range
+                    event.stopPropagation();
+                    scope.selectedRangeTxt = '';
+                    scope.selectedDate = {day: 0, month: 0, year: 0};
                 };
 
                 scope.$watch('visibleMonth', function (newVal, oldVal) {

@@ -136,8 +136,9 @@ angular.module('dpdaterangepicker', [])
                     }
                 };
 
-                scope.picker = function () {
+                scope.picker = function (event) {
                     // Show or hide selector
+                    event.stopPropagation();
                     scope.showSelector = !scope.showSelector;
                     if (scope.showSelector) {
                         // Reset values
@@ -160,6 +161,13 @@ angular.module('dpdaterangepicker', [])
                         // Create current month
                         createMonth(m, y);
                     }
+                };
+
+                scope.clearSelection = function (event) {
+                    // Clear selected range
+                    event.stopPropagation();
+                    scope.selectedRangeTxt = '';
+                    scope.selectedDate = {day: 0, month: 0, year: 0};
                 };
 
                 scope.$watch('visibleMonth', function (newVal, oldVal) {
