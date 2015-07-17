@@ -1,13 +1,13 @@
 /* 
 *  Name: dpdaterangepicker 
 *  Description: Date range picker - AngularJS reusable UI component 
-*  Version: 0.0.1 
+*  Version: 0.0.2 
 *  Author: kekeh 
 *  Homepage: http://kekeh.github.io/dpdaterangepicker 
 *  License: MIT 
-*  Date: 2015-07-16 
+*  Date: 2015-07-17 
 */ 
-angular.module('template-dpdaterangepicker-0.0.1.html', ['templates/dpdaterangepicker.html']);
+angular.module('template-dpdaterangepicker-0.0.2.html', ['templates/dpdaterangepicker.html']);
 
 angular.module("templates/dpdaterangepicker.html", []).run(["$templateCache", function($templateCache) {
   $templateCache.put("templates/dpdaterangepicker.html",
@@ -86,7 +86,7 @@ angular.module("templates/dpdaterangepicker.html", []).run(["$templateCache", fu
     "");
 }]);
 
-angular.module('dpdaterangepicker', ["template-dpdaterangepicker-0.0.1.html"])
+angular.module('dpdaterangepicker', ["template-dpdaterangepicker-0.0.2.html"])
 
 /**
  * @ngdoc object
