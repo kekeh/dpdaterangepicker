@@ -283,6 +283,7 @@
 
 .dpdaterangepicker table {
     display: table;
+    font-size: 14px;
 }
 
 .dpdaterangepicker table td {
