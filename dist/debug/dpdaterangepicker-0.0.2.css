@@ -130,6 +130,7 @@
     table-layout: fixed;
     width: 100%;
     background-color: #FFF;
+    font-size: 14px;
 }
 
 .dpdaterangepicker .dptable,
@@ -283,7 +284,6 @@
 
 .dpdaterangepicker table {
     display: table;
-    font-size: 14px;
 }
 
 .dpdaterangepicker table td {
