@@ -13,8 +13,22 @@ angular.module('dpdaterangepicker', [])
         CURR_MONTH: 2,
         NEXT_MONTH: 3,
         DATES_SEPARATOR: ' - ',
-        COLON: ': '
+        TOOLTIP_SHOW_DELAY: 600
     })
+
+/**
+ * @ngdoc object
+ * @name dpdatepickerService
+ * @description dpdatepickerService contain common code of the dpdatepicker.
+ */
+    .service('dpdaterangepickerService', ['$http', '$templateCache', function ($http, $templateCache) {
+        this.getTemplate = function (name) {
+            var promise = $http.get(name, {cache: $templateCache}).success(function (response) {
+                return response.data;
+            });
+            return promise;
+        };
+    }])
 
 /**
  * @ngdoc object
@@ -104,7 +118,7 @@ angular.module('dpdaterangepicker', [])
                 scope.toBeginDate = function () {
                     // Back to begin date selection
                     scope.selectedDate = selectedBeginDate;
-                    scope.titleTxt = scope.options.beginDateText + scope.config.COLON + formatDate(selectedBeginDate);
+                    scope.titleTxt = formatDate(selectedBeginDate);
                     scope.beginDateStep = true;
                     scope.rangeOk = true;
                 };
@@ -118,22 +132,7 @@ angular.module('dpdaterangepicker', [])
                     // OK button clicked
                     scope.selectedRangeTxt = scope.titleTxt;
                     scope.showSelector = false;
-                    if (scope.options.dateRangeSelectCb) {
-                        // Notify parent
-                        scope.options.dateRangeSelectCb({
-                                day: selectedBeginDate.day,
-                                month: selectedBeginDate.month,
-                                year: selectedBeginDate.year,
-                                formatted: formatDate(selectedBeginDate)
-                            },
-                            {
-                                day: scope.selectedDate.day,
-                                month: scope.selectedDate.month,
-                                year: scope.selectedDate.year,
-                                formatted: formatDate(scope.selectedDate)
-                            },
-                            scope.selectedRangeTxt);
-                    }
+                    notifyParent(selectedBeginDate, scope.selectedDate);
                 };
 
                 scope.picker = function (event) {
@@ -168,6 +167,7 @@ angular.module('dpdaterangepicker', [])
                     event.stopPropagation();
                     scope.selectedRangeTxt = '';
                     scope.selectedDate = {day: 0, month: 0, year: 0};
+                    notifyParent(scope.selectedDate, scope.selectedDate);
                 };
 
                 scope.$watch('visibleMonth', function (newVal, oldVal) {
@@ -176,6 +176,15 @@ angular.module('dpdaterangepicker', [])
                         createMonth(newVal.monthNbr, newVal.year);
                     }
                 }, true);
+
+                function notifyParent(begin, end) {
+                    if (scope.options.dateRangeSelectCb) {
+                        scope.options.dateRangeSelectCb(
+                            {day: begin.day, month: begin.month, year: begin.year, formatted: formatDate(begin)},
+                            {day: end.day, month: end.month, year: end.year, formatted: formatDate(end)},
+                            scope.selectedRangeTxt);
+                    }
+                }
 
                 function reset(titleTxt, beginDateStep) {
                     scope.selectedDate = {day: 0, month: 0, year: 0};
@@ -188,7 +197,7 @@ angular.module('dpdaterangepicker', [])
                     scope.selectedDate = {day: val.day, month: val.month, year: val.year};
                     if (scope.beginDateStep) {
                         scope.rangeOk = true;
-                        scope.titleTxt = scope.options.beginDateText + scope.config.COLON + formatDate(val);
+                        scope.titleTxt = formatDate(val);
                         selectedBeginDate = angular.copy(scope.selectedDate);
                     }
                     else {
@@ -200,6 +209,9 @@ angular.module('dpdaterangepicker', [])
                 }
 
                 function formatDate(val) {
+                    if(val.day === 0 && val.month === 0 && val.year === 0) {
+                        return '';
+                    }
                     var fmt = angular.copy(scope.options.dateFormat);
                     return fmt.replace(scope.config.YEAR_CONST, val.year)
                         .replace(scope.config.MONTH_CONST, preZero(val.month))
@@ -345,6 +357,65 @@ angular.module('dpdaterangepicker', [])
                 }
 
                 $timeout(init);
+            }
+        };
+    }])
+
+/**
+ * @ngdoc object
+ * @name tooltipWindow
+ * @description tooltipWindow directive implements the tooltip window.
+ */
+    .directive('tooltipWindow', ['$compile', '$timeout', 'dpdaterangepickerService', function ($compile, $timeout, dpdaterangepickerService) {
+        return {
+            restrict: 'A',
+            scope: false,
+            link: function (scope, element, attrs) {
+                var pElem = null;
+                var tooltip = null;
+                var timer = null;
+
+                scope.closeTooltip = function (event) {
+                    event.stopPropagation();
+                    onMouseLeave();
+                };
+
+                function onMouseEnter() {
+                    if (element[0].scrollWidth > element[0].offsetWidth) {
+                        timer = $timeout(function () {
+                            dpdaterangepickerService.getTemplate('daterangepickertooltip.html').then(function (tpl) {
+                                tooltip = angular.element(tpl.data);
+                                pElem.prepend($compile(tooltip)(scope));
+                            });
+                        }, scope.config.TOOLTIP_SHOW_DELAY);
+                    }
+                }
+
+                function onMouseLeave() {
+                    cancelTimer();
+                    if (tooltip !== null) {
+                        tooltip.remove();
+                        tooltip = null;
+                    }
+                }
+
+                function cancelTimer() {
+                    $timeout.cancel(timer);
+                    timer = null;
+                }
+
+                scope.$on('$destroy', function () {
+                    pElem.off('mouseenter', onMouseEnter);
+                    pElem.off('mouseleave', onMouseLeave);
+                });
+
+                function init() {
+                    pElem = element.parent();
+                    pElem.on('mouseenter', onMouseEnter);
+                    pElem.on('mouseleave', onMouseLeave);
+                }
+
+                init();
             }
         };
     }]);

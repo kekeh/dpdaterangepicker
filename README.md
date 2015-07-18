@@ -1,4 +1,4 @@
-# dpdaterangepicker v. 0.0.2
+# dpdaterangepicker v. 0.0.3
 
 **Date range picker - AngularJS reusable UI component**
 
@@ -7,10 +7,10 @@ Simple AngularJS directive which implements the date range picker. Depends on on
 
 ## Usage
 
-* include the **dpdaterangepicker-0.0.2.min.js** and the **dpdaterangepicker-0.0.2.min.css** files into your project. See the **Build project** and the **Installation** chapters below.
+* include the **dpdaterangepicker-0.0.3.min.js** and the **dpdaterangepicker-0.0.3.min.css** files into your project. See the **Build project** and the **Installation** chapters below.
 ```html
-<script src="dpdaterangepicker-0.0.2.min.js"></script>
-<link href="dpdaterangepicker-0.0.2.min.css" rel="stylesheet" type="text/css">
+<script src="dpdaterangepicker-0.0.3.min.js"></script>
+<link href="dpdaterangepicker-0.0.3.min.css" rel="stylesheet" type="text/css">
 ```
 * inject the **dpdaterangepicker** module into your application module.
 ```js
@@ -54,7 +54,8 @@ angular.module('sampleapp', ['dpdaterangepicker']);
 | buttons.**okBtnText** | Ok button text. | text | yes |
 | **beginDateText** | Begin date text shown in UI. | text | yes |
 | **endDateText** | End date text shown in UI. | text | yes |
-| **sundayRedColor** | Is sundays color red or not. | true or false | yes |
+| **currentDayHighlight** | Is current day highlighted. | true or false | yes |
+| **sundayHighlight** | Is sundays highlighted or not. | true or false | yes |
 | **dateRangeSelectCb** | Date range select callback function. See below. | function | no |
 
 
@@ -118,7 +119,7 @@ sampleapp.controller('sampleappctrl', function ($scope) {
         },
         beginDateText: 'begin date',
         endDateText: 'end date',
-        sundayRedColor: true,
+        sundayHighlight: true,
         dateRangeSelectCb: onDateRangeSelect
     };
 ```

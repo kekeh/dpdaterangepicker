@@ -45,7 +45,8 @@ describe('dpdaterangepicker', function () {
             },
             beginDateText: 'begin date',
             endDateText: 'end date',
-            sundayRedColor: true,
+            sundayHighlight: true,
+            currentDayHighlight: true,
             dateRangeSelectCb: onDateRangeSelect
         };
 

@@ -68,7 +68,8 @@ sampleapp.controller('samplectrl', function ($scope) {
         },
         beginDateText: 'begin date',
         endDateText: 'end date',
-        sundayRedColor: true,
+        sundayHighlight: true,
+        currentDayHighlight: true,
         dateRangeSelectCb: onDateRangeSelect
     };
 });
