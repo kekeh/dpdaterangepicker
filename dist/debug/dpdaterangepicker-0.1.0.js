@@ -148,7 +148,7 @@ angular.module('dpdaterangepicker', ["template-dpdaterangepicker-0.1.0.html"])
             restrict: 'EA',
             templateUrl: 'templates/dpdaterangepicker.html',
             scope: {
-                ngModel: '=',
+                ngModel: '=?',
                 options: '='
             },
             controller: ['$scope', 'dpdaterangeConfig', function ($scope, dpdaterangeConfig) {
