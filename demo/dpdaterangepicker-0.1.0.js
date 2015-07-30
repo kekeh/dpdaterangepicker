@@ -1,70 +1,70 @@
 /* 
-*  Name: dpdaterangepicker 
-*  Description: Date range picker - AngularJS reusable UI component 
-*  Version: 0.1.0 
-*  Author: kekeh 
-*  Homepage: http://kekeh.github.io/dpdaterangepicker 
-*  License: MIT 
-*  Date: 2015-07-30 
-*/ 
+ *  Name: dpdaterangepicker
+ *  Description: Date range picker - AngularJS reusable UI component
+ *  Version: 0.1.0
+ *  Author: kekeh
+ *  Homepage: http://kekeh.github.io/dpdaterangepicker
+ *  License: MIT
+ *  Date: 2015-07-30
+ */
 angular.module('template-dpdaterangepicker-0.1.0.html', ['templates/dpdaterangepicker.html']);
 
 angular.module("templates/dpdaterangepicker.html", []).run(["$templateCache", function($templateCache) {
-  $templateCache.put("templates/dpdaterangepicker.html",
-    "<div class=\"dpdaterangepicker\" ng-style=\"{'width':width}\">\n" +
-    "    <div class=\"dpselectiongroup\" ng-click=\"picker($event)\">\n" +
-    "        <span class=\"dpselection\" ng-style=\"{'line-height': height}\" ng-click=\"picker($event)\" tooltip-window>{{selectedRangeTxt}}</span>\n" +
-    "        <span class=\"dpselbtngroup\" ng-style=\"{'height': height}\">\n" +
-    "            <button class=\"dpbtnclear\" ng-show=\"selectedRangeTxt.length > 0\" ng-click=\"clearSelection($event)\" ng-mouseenter=\"$event.stopPropagation()\"><span class=\"icon icon-cross\"></span></button>\n" +
-    "            <button class=\"dpbtnpicker\" ng-click=\"picker($event)\" ng-mouseenter=\"$event.stopPropagation()\"><span class=\"icon icon-calendar\"></span></button>\n" +
-    "        </span>\n" +
-    "    </div>\n" +
-    "    <div class=\"dpselector\" ng-if=\"showSelector\">\n" +
-    "        <div class=\"dptitlearea\" ng-class=\"{'dptitlerangeok': rangeOk, 'dptitlerangenotok': !rangeOk}\">\n" +
-    "            <div class=\"dptitleareatxt\">{{titleTxt}}</div>\n" +
-    "        </div>\n" +
-    "        <table class=\"dpheader\">\n" +
-    "            <tr>\n" +
-    "                <td>\n" +
-    "                    <div style=\"float:left\">\n" +
-    "                        <div class=\"dpheaderbtn\" ng-click=\"prevMonth()\"><span class=\"icon icon-left\"></span></div>\n" +
-    "                        <div class=\"dpheadermonthtxt\" ng-bind=\"visibleMonth.monthTxt\"></div>\n" +
-    "                        <div class=\"dpheaderbtn\" ng-click=\"nextMonth()\"><span class=\"icon icon-right\"></span></div>\n" +
-    "                    </div>\n" +
-    "                </td>\n" +
-    "                <td>\n" +
-    "                    <button class=\"dpheadertodaybtn\" ng-click=\"today()\">{{options.buttons.todayBtnText!== undefined?options.buttons.todayBtnText:cf.buttons.todayBtnText}}</button>\n" +
-    "                </td>\n" +
-    "                <td>\n" +
-    "                    <div style=\"float:right\">\n" +
-    "                        <div class=\"dpheaderbtn\" ng-click=\"prevYear()\"><span class=\"icon icon-left\"></span></div>\n" +
-    "                        <div class=\"dpheaderyeartxt\" ng-bind=\"visibleMonth.year\"></div>\n" +
-    "                        <div class=\"dpheaderbtn\" ng-click=\"nextYear()\"><span class=\"icon icon-right\"></span></div>\n" +
-    "                    </div>\n" +
-    "                </td>\n" +
-    "            </tr>\n" +
-    "        </table>\n" +
-    "        <table class=\"dptable\">\n" +
-    "            <thead><tr><th ng-repeat=\"d in weekDays track by $index\" ng-bind=\"d\"></th></tr></thead>\n" +
-    "            <tbody>\n" +
-    "                <tr ng-repeat=\"w in dates track by $index\">\n" +
-    "                    <td ng-repeat=\"d in w track by $index\" ng-class=\"{'dpcurrmonth':d.cmo===cf.CURR_MONTH,'dpcurrday':d.currDay && (options.currDayHighlight!==undefined?options.currDayHighlight:cf.currDayHighlight),'dpselectedday':selectedDate.day===d.day && selectedDate.month===d.month && selectedDate.year===d.year && d.cmo===cf.CURR_MONTH}\" ng-click=\"cellClicked(d)\">\n" +
-    "                        <span style=\"background-color:inherit\" ng-class=\"{'dpprevmonth':d.cmo===cf.PREV_MONTH,'dpcurrmonth':d.cmo===cf.CURR_MONTH,'dpnextmonth':d.cmo===cf.NEXT_MONTH,'dpsunday':d.sun && d.cmo===cf.CURR_MONTH && (options.sunHighlight!==undefined?options.sunHighlight:cf.sunHighlight)}\" ng-bind=\"d.day\"></span>\n" +
-    "                    </td>\n" +
-    "                </tr>\n" +
-    "            </tbody>\n" +
-    "        </table>\n" +
-    "        <div class=\"dpfooterarea\">\n" +
-    "            <button class=\"dpfooterbtn\" ng-class=\"{'dpbtndisable': !rangeOk}\" ng-disabled=\"!rangeOk\" ng-show=\"beginDateStep\" ng-click=\"toEndDate()\">{{options.buttons.nextBtnText!==undefined?options.buttons.nextBtnText:cf.buttons.nextBtnText}}</button>\n" +
-    "            <button class=\"dpfooterbtn\" ng-show=\"!beginDateStep\" ng-click=\"toBeginDate()\">{{options.buttons.prevBtnText!==undefined?options.buttons.prevBtnText:cf.buttons.prevBtnText}}</button>\n" +
-    "            <button class=\"dpfooterbtn\" ng-class=\"{'dpbtndisable': !rangeOk}\" ng-disabled=\"!rangeOk\" ng-show=\"!beginDateStep\" ng-click=\"accept()\">{{options.buttons.okBtnText!==undefined?options.buttons.okBtnText:cf.buttons.okBtnText}}</button>\n" +
-    "        </div>\n" +
-    "    </div>\n" +
-    "\n" +
-    "    <script type=\"text/ng-template\" id=\"daterangepickertooltip.html\">\n" +
-    "        <div class=\"vstooltip\" ng-click=\"closeTooltip($event)\"><span class=\"vstooltiptext\">{{selectedRangeTxt}}</span></div>\n" +
-    "    </script>\n" +
-    "</div>");
+    $templateCache.put("templates/dpdaterangepicker.html",
+        "<div class=\"dpdaterangepicker\" ng-style=\"{'width':width}\">\n" +
+        "    <div class=\"dpselectiongroup\" ng-click=\"picker($event)\">\n" +
+        "        <span class=\"dpselection\" ng-style=\"{'line-height': height}\" ng-click=\"picker($event)\" tooltip-window>{{selectedRangeTxt}}</span>\n" +
+        "        <span class=\"dpselbtngroup\" ng-style=\"{'height': height}\">\n" +
+        "            <button class=\"dpbtnclear\" ng-show=\"selectedRangeTxt.length > 0\" ng-click=\"clearSelection($event)\" ng-mouseenter=\"$event.stopPropagation()\"><span class=\"icon icon-cross\"></span></button>\n" +
+        "            <button class=\"dpbtnpicker\" ng-click=\"picker($event)\" ng-mouseenter=\"$event.stopPropagation()\"><span class=\"icon icon-calendar\"></span></button>\n" +
+        "        </span>\n" +
+        "    </div>\n" +
+        "    <div class=\"dpselector\" ng-if=\"showSelector\">\n" +
+        "        <div class=\"dptitlearea\" ng-class=\"{'dptitlerangeok': rangeOk, 'dptitlerangenotok': !rangeOk}\">\n" +
+        "            <div class=\"dptitleareatxt\">{{titleTxt}}</div>\n" +
+        "        </div>\n" +
+        "        <table class=\"dpheader\">\n" +
+        "            <tr>\n" +
+        "                <td>\n" +
+        "                    <div style=\"float:left\">\n" +
+        "                        <div class=\"dpheaderbtn\" ng-click=\"prevMonth()\"><span class=\"icon icon-left\"></span></div>\n" +
+        "                        <div class=\"dpheadermonthtxt\" ng-bind=\"visibleMonth.monthTxt\"></div>\n" +
+        "                        <div class=\"dpheaderbtn\" ng-click=\"nextMonth()\"><span class=\"icon icon-right\"></span></div>\n" +
+        "                    </div>\n" +
+        "                </td>\n" +
+        "                <td>\n" +
+        "                    <button class=\"dpheadertodaybtn\" ng-click=\"today()\">{{options.buttons.todayBtnText!== undefined?options.buttons.todayBtnText:cf.buttons.todayBtnText}}</button>\n" +
+        "                </td>\n" +
+        "                <td>\n" +
+        "                    <div style=\"float:right\">\n" +
+        "                        <div class=\"dpheaderbtn\" ng-click=\"prevYear()\"><span class=\"icon icon-left\"></span></div>\n" +
+        "                        <div class=\"dpheaderyeartxt\" ng-bind=\"visibleMonth.year\"></div>\n" +
+        "                        <div class=\"dpheaderbtn\" ng-click=\"nextYear()\"><span class=\"icon icon-right\"></span></div>\n" +
+        "                    </div>\n" +
+        "                </td>\n" +
+        "            </tr>\n" +
+        "        </table>\n" +
+        "        <table class=\"dptable\">\n" +
+        "            <thead><tr><th ng-repeat=\"d in weekDays track by $index\" ng-bind=\"d\"></th></tr></thead>\n" +
+        "            <tbody>\n" +
+        "                <tr ng-repeat=\"w in dates track by $index\">\n" +
+        "                    <td ng-repeat=\"d in w track by $index\" ng-class=\"{'dpcurrmonth':d.cmo===cf.CURR_MONTH,'dpcurrday':d.currDay && (options.currDayHighlight!==undefined?options.currDayHighlight:cf.currDayHighlight),'dpselectedday':selectedDate.day===d.day && selectedDate.month===d.month && selectedDate.year===d.year && d.cmo===cf.CURR_MONTH}\" ng-click=\"cellClicked(d)\">\n" +
+        "                        <span style=\"background-color:inherit\" ng-class=\"{'dpprevmonth':d.cmo===cf.PREV_MONTH,'dpcurrmonth':d.cmo===cf.CURR_MONTH,'dpnextmonth':d.cmo===cf.NEXT_MONTH,'dpsunday':d.sun && d.cmo===cf.CURR_MONTH && (options.sunHighlight!==undefined?options.sunHighlight:cf.sunHighlight)}\" ng-bind=\"d.day\"></span>\n" +
+        "                    </td>\n" +
+        "                </tr>\n" +
+        "            </tbody>\n" +
+        "        </table>\n" +
+        "        <div class=\"dpfooterarea\">\n" +
+        "            <button class=\"dpfooterbtn\" ng-class=\"{'dpbtndisable': !rangeOk}\" ng-disabled=\"!rangeOk\" ng-show=\"beginDateStep\" ng-click=\"toEndDate()\">{{options.buttons.nextBtnText!==undefined?options.buttons.nextBtnText:cf.buttons.nextBtnText}}</button>\n" +
+        "            <button class=\"dpfooterbtn\" ng-show=\"!beginDateStep\" ng-click=\"toBeginDate()\">{{options.buttons.prevBtnText!==undefined?options.buttons.prevBtnText:cf.buttons.prevBtnText}}</button>\n" +
+        "            <button class=\"dpfooterbtn\" ng-class=\"{'dpbtndisable': !rangeOk}\" ng-disabled=\"!rangeOk\" ng-show=\"!beginDateStep\" ng-click=\"accept()\">{{options.buttons.okBtnText!==undefined?options.buttons.okBtnText:cf.buttons.okBtnText}}</button>\n" +
+        "        </div>\n" +
+        "    </div>\n" +
+        "\n" +
+        "    <script type=\"text/ng-template\" id=\"daterangepickertooltip.html\">\n" +
+        "        <div class=\"vstooltip\" ng-click=\"closeTooltip($event)\"><span class=\"vstooltiptext\">{{selectedRangeTxt}}</span></div>\n" +
+        "    </script>\n" +
+        "</div>");
 }]);
 
 angular.module('dpdaterangepicker', ["template-dpdaterangepicker-0.1.0.html"])
@@ -148,7 +148,7 @@ angular.module('dpdaterangepicker', ["template-dpdaterangepicker-0.1.0.html"])
             restrict: 'EA',
             templateUrl: 'templates/dpdaterangepicker.html',
             scope: {
-                ngModel: '=',
+                ngModel: '=?',
                 options: '='
             },
             controller: ['$scope', 'dpdaterangeConfig', function ($scope, dpdaterangeConfig) {
@@ -294,9 +294,7 @@ angular.module('dpdaterangepicker', ["template-dpdaterangepicker-0.1.0.html"])
                             {day: end.day, month: end.month, year: end.year, formatted: formatDate(end)},
                             scope.selectedRangeTxt);
                     }
-                    if(!angular.isUndefined(scope.ngModel)) {
-                        scope.ngModel = scope.selectedRangeTxt;
-                    }
+                    scope.ngModel = scope.selectedRangeTxt;
                 }
 
                 function reset(titleTxt, beginDateStep) {
