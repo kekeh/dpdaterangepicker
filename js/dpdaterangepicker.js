@@ -373,10 +373,6 @@ angular.module('dpdaterangepicker', [])
                     }
                 }
 
-                scope.$on('$destroy', function () {
-                    $document.off("click", onOutClick);
-                });
-
                 function getMonthLabels() {
                     return !angular.isUndefined(scope.options.monthLabels) ? scope.options.monthLabels : scope.cf.monthLabels;
                 }
@@ -384,6 +380,10 @@ angular.module('dpdaterangepicker', [])
                 function getDayLabels() {
                     return !angular.isUndefined(scope.options.dayLabels) ? scope.options.dayLabels : scope.cf.dayLabels;
                 }
+
+                scope.$on('$destroy', function () {
+                    $document.off("click", onOutClick);
+                });
 
                 function init() {
                     // Selection element height/width

@@ -33,7 +33,7 @@ angular.module("templates/dpdaterangepicker.html", []).run(["$templateCache", fu
     "                    </div>\n" +
     "                </td>\n" +
     "                <td>\n" +
-    "                    <button class=\"dpheadertodaybtn\" ng-click=\"today()\">{{options.buttons.todayBtnText!== undefined?options.buttons.todayBtnText:cf.buttons.todayBtnText}}</button>\n" +
+    "                    <button class=\"dpheadertodaybtn\" ng-click=\"today()\">{{options.buttons.todayBtnText!==undefined?options.buttons.todayBtnText:cf.buttons.todayBtnText}}</button>\n" +
     "                </td>\n" +
     "                <td>\n" +
     "                    <div style=\"float:right\">\n" +
@@ -442,10 +442,6 @@ angular.module('dpdaterangepicker', ["template-dpdaterangepicker-0.1.0.html"])
                     }
                 }
 
-                scope.$on('$destroy', function () {
-                    $document.off("click", onOutClick);
-                });
-
                 function getMonthLabels() {
                     return !angular.isUndefined(scope.options.monthLabels) ? scope.options.monthLabels : scope.cf.monthLabels;
                 }
@@ -453,6 +449,10 @@ angular.module('dpdaterangepicker', ["template-dpdaterangepicker-0.1.0.html"])
                 function getDayLabels() {
                     return !angular.isUndefined(scope.options.dayLabels) ? scope.options.dayLabels : scope.cf.dayLabels;
                 }
+
+                scope.$on('$destroy', function () {
+                    $document.off("click", onOutClick);
+                });
 
                 function init() {
                     // Selection element height/width

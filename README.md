@@ -49,8 +49,8 @@ angular.module('sampleapp', ['dpdaterangepicker']);
 | **initSelectorMonth** | Initial selector month. When the selector is opened this month is shown. If not defined the current month is shown. See the **Javascript example** below. | object | - | no |
 | **initSelectedDateRange** | Initial selected date range. When the component is loaded this date range is shown. If not defined no selection. See the **Javascript example** below. | object | - | no |
 | **dateFormat** | Date format. The day and the month are always two digits and the year is always four digits. For example: 'yyyy-mm-dd' | string | 'yyyy-mm-dd' | no |
-| **monthLabels** | Object which contain month names. Shown in selector. See the **Javascript example** below. | strings | Jan, Feb, Mar, Apr, May, Jun, Jul, Aug, Sep, Oct, Nov, Dec | no |
-| **dayLabels** | Object which contain weekday names. Shown in selector. See the **Javascript example** below. | strings | Sun, Mon, Tue, Wed, Thu, Fri, Sat | no |
+| **monthLabels** | Object which contain month names. Shown in selector. | strings | Jan, Feb, Mar, Apr, May, Jun, Jul, Aug, Sep, Oct, Nov, Dec | no |
+| **dayLabels** | Object which contain weekday names. Shown in selector. | strings | Sun, Mon, Tue, Wed, Thu, Fri, Sat | no |
 | **buttons** | Object which contain the sub properties. | See below | - | no |
 | buttons.**todayBtnText** | Today button text. | text | 'Today' | no |
 | buttons.**nextBtnText** | Next button text. | text | 'Next' | no |
