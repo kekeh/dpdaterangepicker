@@ -10,11 +10,22 @@ var sampleapp = angular.module('sampleapp', ['dpdaterangepicker']);
  * @name samplectrl
  * @description samplectrl is controller of the sampleapp.
  */
-sampleapp.controller('samplectrl', function ($scope) {
+sampleapp.controller('samplectrl', function ($scope, dpdaterangeConfig) {
+
+    //dpdaterangeConfig.sunHighlight = false;
+    //dpdaterangeConfig.currDayHighlight = false;
 
     function onDateRangeSelect(beginDate, endDate, range) {
         console.log('PARENT - onDateRangeSelect(): begin date: ', beginDate, ' - end date: ', endDate, ' - range: ', range);
     }
+
+    $scope.selectedRange = undefined;
+
+    $scope.$watch('selectedRange', function(value) {
+        if(value !== undefined) {
+            console.log('PARENT: watch - Date range changed: ', value);
+        }
+    });
 
     // Configuration of the dpdaterangepicker
     $scope.opt = {
@@ -35,42 +46,8 @@ sampleapp.controller('samplectrl', function ($scope) {
                  day: 17
              }
          },
-         */
-        dateFormat: 'yyyy-mm-dd',
-        monthLabels: {
-            1: 'Jan',
-            2: 'Feb',
-            3: 'Mar',
-            4: 'Apr',
-            5: 'May',
-            6: 'Jun',
-            7: 'Jul',
-            8: 'Aug',
-            9: 'Sep',
-            10: 'Oct',
-            11: 'Nov',
-            12: 'Dec'
-        },
-        dayLabels: {
-            su: 'Sun',
-            mo: 'Mon',
-            tu: 'Tue',
-            we: 'Wed',
-            th: 'Thu',
-            fr: 'Fri',
-            sa: 'Sat'
-        },
-        buttons: {
-            todayBtnText: 'Today',
-            nextBtnText: 'Next',
-            prevBtnText: 'Previous',
-            okBtnText: 'OK'
-        },
-        beginDateText: 'begin date',
-        endDateText: 'end date',
-        sundayHighlight: true,
-        currentDayHighlight: true,
         dateRangeSelectCb: onDateRangeSelect
+        */
     };
 });
 

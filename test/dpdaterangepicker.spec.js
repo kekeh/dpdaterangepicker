@@ -13,40 +13,8 @@ describe('dpdaterangepicker', function () {
 
         // Configuration of the dpdatepicker
         scope.opt = {
-            dateFormat: 'yyyy-mm-dd',
-            monthLabels: {
-                1: 'Jan',
-                2: 'Feb',
-                3: 'Mar',
-                4: 'Apr',
-                5: 'May',
-                6: 'Jun',
-                7: 'Jul',
-                8: 'Aug',
-                9: 'Sep',
-                10: 'Oct',
-                11: 'Nov',
-                12: 'Dec'
-            },
-            dayLabels: {
-                su: 'Sun',
-                mo: 'Mon',
-                tu: 'Tue',
-                we: 'Wed',
-                th: 'Thu',
-                fr: 'Fri',
-                sa: 'Sat'
-            },
-            buttons: {
-                todayBtnText: 'Today',
-                nextBtnText: 'Next',
-                prevBtnText: 'Previous',
-                okBtnText: 'OK'
-            },
-            beginDateText: 'begin date',
-            endDateText: 'end date',
-            sundayHighlight: true,
-            currentDayHighlight: true,
+            sunHighlight: false,
+            currDayHighlight: false,
             dateRangeSelectCb: onDateRangeSelect
         };
 

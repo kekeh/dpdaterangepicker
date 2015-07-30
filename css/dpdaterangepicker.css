@@ -1,7 +1,5 @@
 .dpdaterangepicker {
-    height: 32px;
-    width: 230px;
-    min-width: 100px;
+    min-width: 60px;
     border-radius: 2px;
     line-height: 1.1;
 }
@@ -211,7 +209,8 @@
 .dpdaterangepicker .dptable th,
 .dpdaterangepicker .dptable td,
 .dpdaterangepicker .dpheadertodaybtn,
-.dpdaterangepicker .dpfooterbtn {
+.dpdaterangepicker .dpfooterbtn,
+.dpdaterangepicker .vstooltip {
     border: 1px solid #AAA;
 }
 
@@ -319,7 +318,6 @@
 }
 
 .dpdaterangepicker .vstooltip {
-    border: 1px solid #AAA;
     position: absolute;
     -moz-box-shadow: 0 0 14px #000;
     -webkit-box-shadow: 0 0 14px #000;

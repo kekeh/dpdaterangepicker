@@ -3,9 +3,46 @@ angular.module('dpdaterangepicker', [])
 /**
  * @ngdoc object
  * @name dpdaterangeConfig
- * @description dpdaterangeConfig constants of the date picker.
+ * @description dpdaterangeConfig the default values and the constants of the date picker.
  */
     .constant('dpdaterangeConfig', {
+        // Configurable values with default value
+        monthLabels: {
+            1: 'Jan',
+            2: 'Feb',
+            3: 'Mar',
+            4: 'Apr',
+            5: 'May',
+            6: 'Jun',
+            7: 'Jul',
+            8: 'Aug',
+            9: 'Sep',
+            10: 'Oct',
+            11: 'Nov',
+            12: 'Dec'
+        },
+        dayLabels: {
+            su: 'Sun',
+            mo: 'Mon',
+            tu: 'Tue',
+            we: 'Wed',
+            th: 'Thu',
+            fr: 'Fri',
+            sa: 'Sat'
+        },
+        dateFormat: 'yyyy-mm-dd',
+        buttons: {
+            todayBtnText: 'Today',
+            nextBtnText: 'Next',
+            prevBtnText: 'Previous',
+            okBtnText: 'OK'
+        },
+        beginDateText: 'begin date',
+        endDateText: 'end date',
+        sunHighlight: true,
+        currDayHighlight: true,
+
+        // Constants
         YEAR_CONST: 'yyyy',
         MONTH_CONST: 'mm',
         DATE_CONST: 'dd',
@@ -13,7 +50,9 @@ angular.module('dpdaterangepicker', [])
         CURR_MONTH: 2,
         NEXT_MONTH: 3,
         DATES_SEPARATOR: ' - ',
-        TOOLTIP_SHOW_DELAY: 600
+        TOOLTIP_SHOW_DELAY: 600,
+        HEIGHT: '30px',
+        WIDTH: '260px'
     })
 
 /**
@@ -23,10 +62,10 @@ angular.module('dpdaterangepicker', [])
  */
     .service('dpdaterangepickerService', ['$http', '$templateCache', function ($http, $templateCache) {
         this.getTemplate = function (name) {
-            var promise = $http.get(name, {cache: $templateCache}).success(function (response) {
-                return response.data;
+            var p = $http.get(name, {cache: $templateCache}).success(function (resp) {
+                return resp.data;
             });
-            return promise;
+            return p;
         };
     }])
 
@@ -40,10 +79,11 @@ angular.module('dpdaterangepicker', [])
             restrict: 'EA',
             templateUrl: 'templates/dpdaterangepicker.html',
             scope: {
+                ngModel: '=',
                 options: '='
             },
             controller: ['$scope', 'dpdaterangeConfig', function ($scope, dpdaterangeConfig) {
-                $scope.config = dpdaterangeConfig;
+                $scope.cf = dpdaterangeConfig;
             }],
             link: function (scope, element, attrs) {
                 scope.dates = [], scope.weekDays = [];
@@ -51,6 +91,7 @@ angular.module('dpdaterangepicker', [])
                 scope.showSelector = false, scope.rangeOk = false, scope.beginDateStep = true;
                 scope.selectedDate = {day: 0, month: 0, year: 0};
                 scope.visibleMonth = {monthTxt: '', monthNbr: 0, year: 0};
+                scope.width = scope.cf.WIDTH, scope.height = scope.cf.HEIGHT;
 
                 var selectedBeginDate = {day: 0, month: 0, year: 0};
                 var today = new Date();
@@ -101,15 +142,15 @@ angular.module('dpdaterangepicker', [])
 
                 scope.cellClicked = function (cell) {
                     // Cell clicked in the selector
-                    if (cell.cmo === scope.config.PREV_MONTH) {
+                    if (cell.cmo === scope.cf.PREV_MONTH) {
                         // Previous month of day
                         scope.prevMonth();
                     }
-                    else if (cell.cmo === scope.config.CURR_MONTH) {
+                    else if (cell.cmo === scope.cf.CURR_MONTH) {
                         // Current month of day
                         handleSelect(cell);
                     }
-                    else if (cell.cmo === scope.config.NEXT_MONTH) {
+                    else if (cell.cmo === scope.cf.NEXT_MONTH) {
                         // Next month of day
                         scope.nextMonth();
                     }
@@ -125,7 +166,7 @@ angular.module('dpdaterangepicker', [])
 
                 scope.toEndDate = function () {
                     // To end date selection
-                    reset(scope.options.endDateText, false);
+                    reset(!angular.isUndefined(scope.options.endDateText) ? scope.options.endDateText : scope.cf.endDateText, false);
                 };
 
                 scope.accept = function () {
@@ -141,7 +182,7 @@ angular.module('dpdaterangepicker', [])
                     scope.showSelector = !scope.showSelector;
                     if (scope.showSelector) {
                         // Reset values
-                        reset(scope.options.beginDateText, true);
+                        reset(!angular.isUndefined(scope.options.beginDateText) ? scope.options.beginDateText : scope.cf.beginDateText, true);
 
                         var y = 0, m = 0;
                         // Initial selector month
@@ -155,7 +196,7 @@ angular.module('dpdaterangepicker', [])
                         }
 
                         // Set current month
-                        scope.visibleMonth = {monthTxt: scope.options.monthLabels[m], monthNbr: m, year: y};
+                        scope.visibleMonth = {monthTxt: getMonthLabels()[m], monthNbr: m, year: y};
 
                         // Create current month
                         createMonth(m, y);
@@ -184,6 +225,7 @@ angular.module('dpdaterangepicker', [])
                             {day: end.day, month: end.month, year: end.year, formatted: formatDate(end)},
                             scope.selectedRangeTxt);
                     }
+                    scope.ngModel = scope.selectedRangeTxt;
                 }
 
                 function reset(titleTxt, beginDateStep) {
@@ -204,18 +246,18 @@ angular.module('dpdaterangepicker', [])
                         var b = new Date(selectedBeginDate.year, selectedBeginDate.month - 1, selectedBeginDate.day);
                         var e = new Date(scope.selectedDate.year, scope.selectedDate.month - 1, scope.selectedDate.day);
                         scope.rangeOk = b <= e;
-                        scope.titleTxt = formatDate(selectedBeginDate) + scope.config.DATES_SEPARATOR + formatDate(val);
+                        scope.titleTxt = formatDate(selectedBeginDate) + scope.cf.DATES_SEPARATOR + formatDate(val);
                     }
                 }
 
                 function formatDate(val) {
-                    if(val.day === 0 && val.month === 0 && val.year === 0) {
+                    if (val.day === 0 && val.month === 0 && val.year === 0) {
                         return '';
                     }
-                    var fmt = angular.copy(scope.options.dateFormat);
-                    return fmt.replace(scope.config.YEAR_CONST, val.year)
-                        .replace(scope.config.MONTH_CONST, preZero(val.month))
-                        .replace(scope.config.DATE_CONST, preZero(val.day));
+                    var fmt = angular.copy(!angular.isUndefined(scope.options.dateFormat) ? scope.options.dateFormat : scope.cf.dateFormat);
+                    return fmt.replace(scope.cf.YEAR_CONST, val.year)
+                        .replace(scope.cf.MONTH_CONST, preZero(val.month))
+                        .replace(scope.cf.DATE_CONST, preZero(val.day));
                 }
 
                 function preZero(val) {
@@ -225,7 +267,7 @@ angular.module('dpdaterangepicker', [])
 
                 function monthText(m) {
                     // Returns mont as a text
-                    return scope.options.monthLabels[m];
+                    return getMonthLabels()[m];
                 }
 
                 function monthStartIdx(y, m) {
@@ -266,7 +308,7 @@ angular.module('dpdaterangepicker', [])
                     var dInPrevM = daysInPrevMonth(m, y);
 
                     var dayNbr = 1;
-                    var cmo = scope.config.PREV_MONTH;
+                    var cmo = scope.cf.PREV_MONTH;
                     for (var i = 1; i < 7; i++) {
                         var week = [];
                         if (i === 1) {
@@ -283,7 +325,7 @@ angular.module('dpdaterangepicker', [])
                                     sun: week.length === 0
                                 });
                             }
-                            cmo = scope.config.CURR_MONTH;
+                            cmo = scope.cf.CURR_MONTH;
                             // Current month
                             var daysLeft = 7 - week.length;
                             for (var j = 0; j < daysLeft; j++) {
@@ -304,7 +346,7 @@ angular.module('dpdaterangepicker', [])
                                 if (dayNbr > dInThisM) {
                                     // Next month
                                     dayNbr = 1;
-                                    cmo = scope.config.NEXT_MONTH;
+                                    cmo = scope.cf.NEXT_MONTH;
                                 }
                                 week.push({
                                     day: dayNbr,
@@ -335,20 +377,29 @@ angular.module('dpdaterangepicker', [])
                     $document.off("click", onOutClick);
                 });
 
+                function getMonthLabels() {
+                    return !angular.isUndefined(scope.options.monthLabels) ? scope.options.monthLabels : scope.cf.monthLabels;
+                }
+
+                function getDayLabels() {
+                    return !angular.isUndefined(scope.options.dayLabels) ? scope.options.dayLabels : scope.cf.dayLabels;
+                }
+
                 function init() {
-                    // Selection element height
-                    scope.elemHeight = element.children().prop('offsetHeight') - 2;
+                    // Selection element height/width
+                    scope.height = !angular.isUndefined(attrs.height) ? attrs.height : scope.height;
+                    scope.width = !angular.isUndefined(attrs.width) ? attrs.width : scope.width;
 
                     // Weekdays to calendar - check is sunday first day in configuration
                     var days = ['su', 'mo', 'tu', 'we', 'th', 'fr', 'sa'];
                     for (var i in days) {
-                        scope.weekDays.push(scope.options.dayLabels[days[i]]);
+                        scope.weekDays.push(getDayLabels()[days[i]]);
                     }
 
                     // Initial selected date range
                     if (scope.options.initSelectedDateRange !== undefined) {
                         scope.selectedRangeTxt = formatDate(scope.options.initSelectedDateRange.begin) +
-                        scope.config.DATES_SEPARATOR +
+                        scope.cf.DATES_SEPARATOR +
                         formatDate(scope.options.initSelectedDateRange.end);
                     }
 
@@ -387,7 +438,7 @@ angular.module('dpdaterangepicker', [])
                                 tooltip = angular.element(tpl.data);
                                 pElem.prepend($compile(tooltip)(scope));
                             });
-                        }, scope.config.TOOLTIP_SHOW_DELAY);
+                        }, scope.cf.TOOLTIP_SHOW_DELAY);
                     }
                 }
 

@@ -1,4 +1,4 @@
-# dpdaterangepicker v. 0.0.3
+# dpdaterangepicker v. 0.1.0
 
 **Date range picker - AngularJS reusable UI component**
 
@@ -7,10 +7,10 @@ Simple AngularJS directive which implements the date range picker. Depends on on
 
 ## Usage
 
-* include the **dpdaterangepicker-0.0.3.min.js** and the **dpdaterangepicker-0.0.3.min.css** files into your project. See the **Build project** and the **Installation** chapters below.
+* include the **dpdaterangepicker-0.1.0.min.js** and the **dpdaterangepicker-0.1.0.min.css** files into your project. See the **Build project** and the **Installation** chapters below.
 ```html
-<script src="dpdaterangepicker-0.0.3.min.js"></script>
-<link href="dpdaterangepicker-0.0.3.min.css" rel="stylesheet" type="text/css">
+<script src="dpdaterangepicker-0.1.0.min.js"></script>
+<link href="dpdaterangepicker-0.1.0.min.css" rel="stylesheet" type="text/css">
 ```
 * inject the **dpdaterangepicker** module into your application module.
 ```js
@@ -22,7 +22,7 @@ angular.module('sampleapp', ['dpdaterangepicker']);
 ### HTML example
 ```html
 <div ng-app="sampleapp" ng-controller="sampleappctrl">
-    <dpdaterangepicker options="opt"</dpdaterangepicker>
+    <dpdaterangepicker options="opt" width="20%" height="28px"></dpdaterangepicker>
 </div>
 ```
 
@@ -36,34 +36,42 @@ angular.module('sampleapp', ['dpdaterangepicker']);
 | Attribute | Description | Mandatory | 
 | :------------ |:---------------|:---------------:|
 | options | dpdaterangepicker configuration object. See below. | yes |
-
+| ng-model | model object - contains selected date range in string format | no | 
+| width | width of the component (no selector). Can be pixels or percent for example: **width="20%"** or **width="250px"**. The default value is **260px**. | no | 
+| height | height of the component (no selector). Can be pixels or percen for example: **height="100%"** or **height="30px"**. The default value is **30px**. | no | 
 
 ### Options data (an option attribute in the dpdaterangepicker directive)
 
-| Attribute | Description | Values | Mandatory |
-| :------------ |:---------------|:---------------|:---------------|
-| **initSelectorMonth** | Initial selector month. When the selector is opened this month is shown. If not defined the current month is shown. See the **Javascript example** below. | object | no |
-| **initSelectedDateRange** | Initial selected date range. When the component is loaded this date range is shown. If not defined no selection. See the **Javascript example** below. | object | no |
-| **dateFormat** | Date format. The day and the month are always two digits and the year is always four digits. For example: 'yyyy-mm-dd' | string | yes |
-| **monthLabels** | Object which contain month names. Shown in selector. See the **Javascript example** below. | strings | yes |
-| **dayLabels** | Object which contain weekday names. Shown in selector. See the **Javascript example** below. | strings | yes |
-| **buttons** | Object which contain the sub properties. | See below | yes |
-| buttons.**todayBtnText** | Today button text. | text | yes |
-| buttons.**nextBtnText** | Next button text. | text | yes |
-| buttons.**prevBtnText** | Previous button text. | text | yes |
-| buttons.**okBtnText** | Ok button text. | text | yes |
-| **beginDateText** | Begin date text shown in UI. | text | yes |
-| **endDateText** | End date text shown in UI. | text | yes |
-| **currentDayHighlight** | Is current day highlighted. | true or false | yes |
-| **sundayHighlight** | Is sundays highlighted or not. | true or false | yes |
-| **dateRangeSelectCb** | Date range select callback function. See below. | function | no |
+* The following configuration values except **initSelectorMonth**, **initSelectedDateRange** and **dateRangeSelectCb** can be configured also using the **dpdaterangeConfig** object by injecting it. See the **Javascript example** below. By using the **dpdaterangeConfig** does the configuration in the application level. 
+
+| Attribute | Description | Values | Default value | Mandatory |
+| :------------ |:---------------|:---------------|:---------------|:---------------|
+| **initSelectorMonth** | Initial selector month. When the selector is opened this month is shown. If not defined the current month is shown. See the **Javascript example** below. | object | - | no |
+| **initSelectedDateRange** | Initial selected date range. When the component is loaded this date range is shown. If not defined no selection. See the **Javascript example** below. | object | - | no |
+| **dateFormat** | Date format. The day and the month are always two digits and the year is always four digits. For example: 'yyyy-mm-dd' | string | 'yyyy-mm-dd' | no |
+| **monthLabels** | Object which contain month names. Shown in selector. See the **Javascript example** below. | strings | Jan, Feb, Mar, Apr, May, Jun, Jul, Aug, Sep, Oct, Nov, Dec | no |
+| **dayLabels** | Object which contain weekday names. Shown in selector. See the **Javascript example** below. | strings | Sun, Mon, Tue, Wed, Thu, Fri, Sat | no |
+| **buttons** | Object which contain the sub properties. | See below | - | no |
+| buttons.**todayBtnText** | Today button text. | text | 'Today' | no |
+| buttons.**nextBtnText** | Next button text. | text | 'Next' | no |
+| buttons.**prevBtnText** | Previous button text. | text | 'Previous' | no |
+| buttons.**okBtnText** | Ok button text. | text | 'OK' | no |
+| **beginDateText** | Begin date text shown in UI. | 'begin date' | text | no |
+| **endDateText** | End date text shown in UI. | text | 'end date' | no |
+| **currDayHighlight** | Is current day highlighted. | true or false | true | no |
+| **sunHighlight** | Is sundays highlighted or not. | true or false | true | no |
+| **dateRangeSelectCb** | Date range select callback function. See below. | function | - | no |
 
 
 ### Javascript example
 ```js
 var sampleapp = angular.module('sampleapp', ['dpdaterangepicker']);
-sampleapp.controller('sampleappctrl', function ($scope) {
+sampleapp.controller('sampleappctrl', function ($scope, dpdaterangeConfig) {
 
+    // Configure the date range picker in application level by injecting the dpdaterangeConfig object
+    dpdaterangeConfig.sunHighlight = false;
+    dpdaterangeConfig.currDayHighlight = false;
+    
     // Watch the user selections - invoked when the user accepts the date range
     function onDateRangeSelect(beginDate, endDate, range) {
         console.log('onDateRangeSelect(): begin date: ', beginDate, ' - end date: ', endDate, ' - range: ', range);
@@ -87,39 +95,9 @@ sampleapp.controller('sampleappctrl', function ($scope) {
                  day: 17
              }
          },
-        dateFormat: 'yyyy-mm-dd',
-        monthLabels: {
-            1: 'Jan',
-            2: 'Feb',
-            3: 'Mar',
-            4: 'Apr',
-            5: 'May',
-            6: 'Jun',
-            7: 'Jul',
-            8: 'Aug',
-            9: 'Sep',
-            10: 'Oct',
-            11: 'Nov',
-            12: 'Dec'
-        },
-        dayLabels: {
-            su: 'Sun',
-            mo: 'Mon',
-            tu: 'Tue',
-            we: 'Wed',
-            th: 'Thu',
-            fr: 'Fri',
-            sa: 'Sat'
-        },
-        buttons: {
-            todayBtnText: 'Today',
-            nextBtnText: 'Next',
-            prevBtnText: 'Previous',
-            okBtnText: 'OK'
-        },
-        beginDateText: 'begin date',
-        endDateText: 'end date',
-        sundayHighlight: true,
+        dateFormat: 'dd.mm.yyyy',
+        sunHighlight: false,
+        currDayHighlight: false,
         dateRangeSelectCb: onDateRangeSelect
     };
 ```
