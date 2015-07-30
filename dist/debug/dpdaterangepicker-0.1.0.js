@@ -64,8 +64,7 @@ angular.module("templates/dpdaterangepicker.html", []).run(["$templateCache", fu
     "    <script type=\"text/ng-template\" id=\"daterangepickertooltip.html\">\n" +
     "        <div class=\"vstooltip\" ng-click=\"closeTooltip($event)\"><span class=\"vstooltiptext\">{{selectedRangeTxt}}</span></div>\n" +
     "    </script>\n" +
-    "</div> \n" +
-    "");
+    "</div>");
 }]);
 
 angular.module('dpdaterangepicker', ["template-dpdaterangepicker-0.1.0.html"])
