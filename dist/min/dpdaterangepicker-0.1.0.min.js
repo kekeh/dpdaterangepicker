@@ -23,8 +23,8 @@ angular.module("templates/dpdaterangepicker.html", []).run(["$templateCache", fu
     "        <div class=\"dptitlearea\" ng-class=\"{'dptitlerangeok': rangeOk, 'dptitlerangenotok': !rangeOk}\">\n" +
     "            <div class=\"dptitleareatxt\">{{titleTxt}}</div>\n" +
     "        </div>\n" +
-    "        <table class=\"dpheader\">                  \n" +
-    "            <tr> \n" +
+    "        <table class=\"dpheader\">\n" +
+    "            <tr>\n" +
     "                <td>\n" +
     "                    <div style=\"float:left\">\n" +
     "                        <div class=\"dpheaderbtn\" ng-click=\"prevMonth()\"><span class=\"icon icon-left\"></span></div>\n" +
@@ -44,7 +44,7 @@ angular.module("templates/dpdaterangepicker.html", []).run(["$templateCache", fu
     "                </td>\n" +
     "            </tr>\n" +
     "        </table>\n" +
-    "        <table class=\"dptable\">                  \n" +
+    "        <table class=\"dptable\">\n" +
     "            <thead><tr><th ng-repeat=\"d in weekDays track by $index\" ng-bind=\"d\"></th></tr></thead>\n" +
     "            <tbody>\n" +
     "                <tr ng-repeat=\"w in dates track by $index\">\n" +

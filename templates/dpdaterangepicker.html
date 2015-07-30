@@ -10,8 +10,8 @@
         <div class="dptitlearea" ng-class="{'dptitlerangeok': rangeOk, 'dptitlerangenotok': !rangeOk}">
             <div class="dptitleareatxt">{{titleTxt}}</div>
         </div>
-        <table class="dpheader">                  
-            <tr> 
+        <table class="dpheader">
+            <tr>
                 <td>
                     <div style="float:left">
                         <div class="dpheaderbtn" ng-click="prevMonth()"><span class="icon icon-left"></span></div>
@@ -31,7 +31,7 @@
                 </td>
             </tr>
         </table>
-        <table class="dptable">                  
+        <table class="dptable">
             <thead><tr><th ng-repeat="d in weekDays track by $index" ng-bind="d"></th></tr></thead>
             <tbody>
                 <tr ng-repeat="w in dates track by $index">
