@@ -57,20 +57,6 @@ angular.module('dpdaterangepicker', [])
 
 /**
  * @ngdoc object
- * @name dpdatepickerService
- * @description dpdatepickerService contain common code of the dpdatepicker.
- */
-    .service('dpdaterangepickerService', ['$http', '$templateCache', function ($http, $templateCache) {
-        this.getTemplate = function (name) {
-            var p = $http.get(name, {cache: $templateCache}).success(function (resp) {
-                return resp.data;
-            });
-            return p;
-        };
-    }])
-
-/**
- * @ngdoc object
  * @name dpdaterangepicker
  * @description dpdaterangepicker is main directive of the component and it implements the date range picker.
  */
@@ -84,6 +70,7 @@ angular.module('dpdaterangepicker', [])
             },
             controller: ['$scope', 'dpdaterangeConfig', function ($scope, dpdaterangeConfig) {
                 $scope.cf = dpdaterangeConfig;
+                $scope.showTooltip = false;
             }],
             link: function (scope, element, attrs) {
                 scope.dates = [], scope.weekDays = [];
@@ -417,53 +404,25 @@ angular.module('dpdaterangepicker', [])
  * @name tooltipWindow
  * @description tooltipWindow directive implements the tooltip window.
  */
-    .directive('tooltipWindow', ['$compile', '$timeout', 'dpdaterangepickerService', function ($compile, $timeout, dpdaterangepickerService) {
+    .directive('tooltipWindow', ['$timeout', function ($timeout) {
         return {
             restrict: 'A',
             scope: false,
             link: function (scope, element, attrs) {
-                var pElem = null;
-                var tooltip = null;
-                var timer = null;
-
-                scope.closeTooltip = function (event) {
-                    event.stopPropagation();
-                    onMouseLeave();
-                };
-
                 function onMouseEnter() {
                     if (element[0].scrollWidth > element[0].offsetWidth) {
-                        timer = $timeout(function () {
-                            dpdaterangepickerService.getTemplate('daterangepickertooltip.html').then(function (tpl) {
-                                tooltip = angular.element(tpl.data);
-                                pElem.prepend($compile(tooltip)(scope));
-                            });
+                        $timeout(function () {
+                            scope.showTooltip = true;
                         }, scope.cf.TOOLTIP_SHOW_DELAY);
                     }
                 }
 
-                function onMouseLeave() {
-                    cancelTimer();
-                    if (tooltip !== null) {
-                        tooltip.remove();
-                        tooltip = null;
-                    }
-                }
-
-                function cancelTimer() {
-                    $timeout.cancel(timer);
-                    timer = null;
-                }
-
                 scope.$on('$destroy', function () {
-                    pElem.off('mouseenter', onMouseEnter);
-                    pElem.off('mouseleave', onMouseLeave);
+                    element.off('mouseenter', onMouseEnter);
                 });
 
                 function init() {
-                    pElem = element.parent();
-                    pElem.on('mouseenter', onMouseEnter);
-                    pElem.on('mouseleave', onMouseLeave);
+                    element.on('mouseenter', onMouseEnter);
                 }
 
                 init();

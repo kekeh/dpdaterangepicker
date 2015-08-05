@@ -1,9 +1,10 @@
 <div class="dpdaterangepicker" ng-style="{'width':width}">
+    <div class="vstooltip" ng-show="showTooltip" ng-mouseleave="showTooltip=false"><span class="vstooltiptext">{{selectedRangeTxt}}</span></div>
     <div class="dpselectiongroup" ng-click="picker($event)">
         <span class="dpselection" ng-style="{'line-height': height}" ng-click="picker($event)" tooltip-window>{{selectedRangeTxt}}</span>
         <span class="dpselbtngroup" ng-style="{'height': height}">
-            <button class="dpbtnclear" ng-show="selectedRangeTxt.length > 0" ng-click="clearSelection($event)" ng-mouseenter="$event.stopPropagation()"><span class="icon icon-cross"></span></button>
-            <button class="dpbtnpicker" ng-click="picker($event)" ng-mouseenter="$event.stopPropagation()"><span class="icon icon-calendar"></span></button>
+            <button class="dpbtnclear" ng-show="selectedRangeTxt.length > 0" ng-click="clearSelection($event)"><span class="icon icon-cross"></span></button>
+            <button class="dpbtnpicker" ng-click="picker($event)"><span class="icon icon-calendar"></span></button>
         </span>
     </div>
     <div class="dpselector" ng-if="showSelector">
@@ -47,8 +48,4 @@
             <button class="dpfooterbtn" ng-class="{'dpbtndisable': !rangeOk}" ng-disabled="!rangeOk" ng-show="!beginDateStep" ng-click="accept()">{{options.buttons.okBtnText!==undefined?options.buttons.okBtnText:cf.buttons.okBtnText}}</button>
         </div>
     </div>
-
-    <script type="text/ng-template" id="daterangepickertooltip.html">
-        <div class="vstooltip" ng-click="closeTooltip($event)"><span class="vstooltiptext">{{selectedRangeTxt}}</span></div>
-    </script>
 </div>
