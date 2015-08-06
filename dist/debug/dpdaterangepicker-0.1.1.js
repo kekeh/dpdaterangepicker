@@ -5,7 +5,7 @@
 *  Author: kekeh 
 *  Homepage: http://kekeh.github.io/dpdaterangepicker 
 *  License: MIT 
-*  Date: 2015-08-05 
+*  Date: 2015-08-06 
 */ 
 angular.module('template-dpdaterangepicker-0.1.1.html', ['templates/dpdaterangepicker.html']);
 
@@ -270,6 +270,13 @@ angular.module('dpdaterangepicker', ["template-dpdaterangepicker-0.1.1.html"])
                         createMonth(newVal.monthNbr, newVal.year);
                     }
                 }, true);
+
+                scope.$watch('ngModel', function (newVal, oldVal) {
+                    // Listens the ngModel changes
+                    if (newVal !== oldVal && newVal === '') {
+                        scope.selectedRangeTxt = newVal;
+                    }
+                });
 
                 function notifyParent(begin, end) {
                     if (scope.options.dateRangeSelectCb) {

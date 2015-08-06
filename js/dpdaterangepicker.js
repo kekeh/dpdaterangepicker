@@ -205,6 +205,13 @@ angular.module('dpdaterangepicker', [])
                     }
                 }, true);
 
+                scope.$watch('ngModel', function (newVal, oldVal) {
+                    // Listens the ngModel changes
+                    if (newVal !== oldVal && newVal === '') {
+                        scope.selectedRangeTxt = newVal;
+                    }
+                });
+
                 function notifyParent(begin, end) {
                     if (scope.options.dateRangeSelectCb) {
                         scope.options.dateRangeSelectCb(
