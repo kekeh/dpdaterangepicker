@@ -1,4 +1,4 @@
-# dpdaterangepicker v. 0.1.1
+# dpdaterangepicker v. 0.1.2
 
 **Date range picker - AngularJS reusable UI component**
 
@@ -7,10 +7,10 @@ Simple AngularJS directive which implements the date range picker. Depends on on
 
 ## Usage
 
-* include the **dpdaterangepicker-0.1.1.min.js** and the **dpdaterangepicker-0.1.1.min.css** files into your project. See the **Build project** and the **Installation** chapters below.
+* include the **dpdaterangepicker-0.1.2.min.js** and the **dpdaterangepicker-0.1.2.min.css** files into your project. See the **Build project** and the **Installation** chapters below.
 ```html
-<script src="dpdaterangepicker-0.1.1.min.js"></script>
-<link href="dpdaterangepicker-0.1.1.min.css" rel="stylesheet" type="text/css">
+<script src="dpdaterangepicker-0.1.2.min.js"></script>
+<link href="dpdaterangepicker-0.1.2.min.css" rel="stylesheet" type="text/css">
 ```
 * inject the **dpdaterangepicker** module into your application module.
 ```js
