@@ -1,4 +1,4 @@
-# dpdaterangepicker v. 0.1.2
+# dpdaterangepicker v. 0.1.3
 
 **Date range picker - AngularJS reusable UI component**
 
@@ -7,10 +7,10 @@ Simple AngularJS directive which implements the date range picker. Depends on on
 
 ## Usage
 
-* include the **dpdaterangepicker-0.1.2.min.js** and the **dpdaterangepicker-0.1.2.min.css** files into your project. See the **Build project** and the **Installation** chapters below.
+* include the **dpdaterangepicker-0.1.3.min.js** and the **dpdaterangepicker-0.1.3.min.css** files into your project. See the **Build project** and the **Installation** chapters below.
 ```html
-<script src="dpdaterangepicker-0.1.2.min.js"></script>
-<link href="dpdaterangepicker-0.1.2.min.css" rel="stylesheet" type="text/css">
+<script src="dpdaterangepicker-0.1.3.min.js"></script>
+<link href="dpdaterangepicker-0.1.3.min.css" rel="stylesheet" type="text/css">
 ```
 * inject the **dpdaterangepicker** module into your application module.
 ```js
@@ -51,6 +51,8 @@ angular.module('sampleapp', ['dpdaterangepicker']);
 | **dateFormat** | Date format. The day and the month are always two digits and the year is always four digits. For example: 'yyyy-mm-dd' | string | 'yyyy-mm-dd' | no |
 | **monthLabels** | Object which contain month names. Shown in selector. | strings | Jan, Feb, Mar, Apr, May, Jun, Jul, Aug, Sep, Oct, Nov, Dec | no |
 | **dayLabels** | Object which contain weekday names. Shown in selector. | strings | Sun, Mon, Tue, Wed, Thu, Fri, Sat | no |
+| **firstDayOfWeek** | First day of week shown in selector. | One string of the following: su, mo, tu, we, th, fr, sa | su | no | 
+| **showGrid** | Is grid visible or not on the selector. | true or false | true | no |
 | **buttons** | Object which contain the sub properties. | See below | - | no |
 | buttons.**todayBtnText** | Today button text. | text | 'Today' | no |
 | buttons.**nextBtnText** | Next button text. | text | 'Next' | no |
@@ -96,6 +98,8 @@ sampleapp.controller('sampleappctrl', function ($scope, dpdaterangeConfig) {
              }
          },
         dateFormat: 'dd.mm.yyyy',
+        firstDayOfWeek: 'mo',
+        showGrid: false,
         sunHighlight: false,
         currDayHighlight: false,
         dateRangeSelectCb: onDateRangeSelect
@@ -180,7 +184,7 @@ Example of the function. See description of the parameters below the example.
 In the **examples** folder of this project has the sample application and the online demo is [here](http://kekeh.github.io/dpdaterangepicker)
 
 ## Dependencies
-Depends on AngularJS. Implemented using the AngularJS version 1.3.16.
+Depends on AngularJS. Implemented using the AngularJS version 1.4.4.
 
 ## Build project
 * Build can be done by executing the **grunt** command. It creates the **dist/debug** and the **dist/min** folders and put files to these folders.
@@ -201,7 +205,7 @@ bower install dpdaterangepicker
 * Opera 28.0
 * Mobile Safari 8
 
-## Licence
+## License
 * License: MIT
 
 ## Author

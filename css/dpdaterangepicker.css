@@ -17,7 +17,7 @@
     margin-top: 3px;
     margin-left: -1px;
     position: absolute;
-    max-width: 262px;
+    max-width: 250px;
     padding: 3px;
     border-radius: 2px;
     background-color: #DDD;
@@ -91,6 +91,7 @@
     height: 26px;
     line-height: 26px;
     font-size: 14px;
+    font-weight: bold;
 }
 
 .dpdaterangepicker .dpfooterarea {
@@ -152,7 +153,8 @@
 
 .dpdaterangepicker .dptable th {
     background-color: #DDD;
-    font-size: 12px;
+    font-size: 11px;
+    font-weight: bold;
 }
 
 .dpdaterangepicker .dptable td {
@@ -161,6 +163,7 @@
 
 .dpdaterangepicker .dpprevmonth {
     color: #CCC;
+    font-weight: normal;
 }
 
 .dpdaterangepicker .dpcurrmonth {
@@ -170,6 +173,7 @@
 
 .dpdaterangepicker .dpnextmonth {
     color: #CCC;
+    font-weight: normal;
 }
 
 .dpdaterangepicker .dpsunday {
@@ -177,7 +181,7 @@
 }
 
 .dpdaterangepicker .dpcurrmonth {
-    background-color: #FAFAFA;
+    background-color: #F7F7F7;
 }
 
 .dpdaterangepicker .dpcurrday {
@@ -206,12 +210,17 @@
 .dpdaterangepicker .dpfooterarea,
 .dpdaterangepicker .dpheader,
 .dpdaterangepicker .dptable,
+.dpdaterangepicker .dptable tbody,
 .dpdaterangepicker .dptable th,
 .dpdaterangepicker .dptable td,
 .dpdaterangepicker .dpheadertodaybtn,
 .dpdaterangepicker .dpfooterbtn,
 .dpdaterangepicker .vstooltip {
     border: 1px solid #AAA;
+}
+
+.dpdaterangepicker .dpnogrid {
+    border: none !important;
 }
 
 .dpdaterangepicker .dpbtnpicker,
@@ -235,6 +244,7 @@
 
 .dpdaterangepicker .dpfooterbtn {
     width: 80px;
+    font-weight: normal;
 }
 
 .dpdaterangepicker button::-moz-focus-inner {

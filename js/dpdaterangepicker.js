@@ -7,30 +7,11 @@ angular.module('dpdaterangepicker', [])
  */
     .constant('dpdaterangeConfig', {
         // Configurable values with default value
-        monthLabels: {
-            1: 'Jan',
-            2: 'Feb',
-            3: 'Mar',
-            4: 'Apr',
-            5: 'May',
-            6: 'Jun',
-            7: 'Jul',
-            8: 'Aug',
-            9: 'Sep',
-            10: 'Oct',
-            11: 'Nov',
-            12: 'Dec'
-        },
-        dayLabels: {
-            su: 'Sun',
-            mo: 'Mon',
-            tu: 'Tue',
-            we: 'Wed',
-            th: 'Thu',
-            fr: 'Fri',
-            sa: 'Sat'
-        },
+        monthLabels: {1: 'Jan', 2: 'Feb', 3: 'Mar', 4: 'Apr', 5: 'May', 6: 'Jun', 7: 'Jul', 8: 'Aug', 9: 'Sep', 10: 'Oct', 11: 'Nov', 12: 'Dec'},
+        dayLabels: {su: 'Sun', mo: 'Mon', tu: 'Tue', we: 'Wed', th: 'Thu', fr: 'Fri', sa: 'Sat'},
         dateFormat: 'yyyy-mm-dd',
+        firstDayOfWeek: 'su',
+        showGrid: true,
         buttons: {
             todayBtnText: 'Today',
             nextBtnText: 'Next',
@@ -80,6 +61,7 @@ angular.module('dpdaterangepicker', [])
                 scope.visibleMonth = {monthTxt: '', monthNbr: 0, year: 0};
                 scope.width = scope.cf.WIDTH, scope.height = scope.cf.HEIGHT;
 
+                var dayIdx = 0;
                 var selectedBeginDate = {day: 0, month: 0, year: 0};
                 var today = new Date();
 
@@ -270,7 +252,13 @@ angular.module('dpdaterangepicker', [])
                     d.setDate(1);
                     d.setMonth(m - 1);
                     d.setYear(y);
-                    return d.getDay();
+                    var idx = d.getDay() + sundayIdx();
+                    return idx >= 7 ? idx - 7 : idx;
+                }
+
+                function sundayIdx() {
+                    // Index of Sunday day
+                    return dayIdx > 0 ? 7 - dayIdx : 0;
                 }
 
                 function daysInMonth(m, y) {
@@ -300,6 +288,7 @@ angular.module('dpdaterangepicker', [])
                     var monthStart = monthStartIdx(y, m);
                     var dInThisM = daysInMonth(m, y);
                     var dInPrevM = daysInPrevMonth(m, y);
+                    var sunIdx = sundayIdx();
 
                     var dayNbr = 1;
                     var cmo = scope.cf.PREV_MONTH;
@@ -311,12 +300,7 @@ angular.module('dpdaterangepicker', [])
                             // Previous month
                             for (var j = pm; j <= dInPrevM; j++) {
                                 week.push({
-                                    day: j,
-                                    month: m,
-                                    year: y,
-                                    cmo: cmo,
-                                    currDay: isCurrDay(j, m, y, cmo),
-                                    sun: week.length === 0
+                                    day: j, month: m, year: y, cmo: cmo, currDay: isCurrDay(j, m, y, cmo), sun: week.length === sunIdx
                                 });
                             }
                             cmo = scope.cf.CURR_MONTH;
@@ -324,12 +308,7 @@ angular.module('dpdaterangepicker', [])
                             var daysLeft = 7 - week.length;
                             for (var j = 0; j < daysLeft; j++) {
                                 week.push({
-                                    day: dayNbr,
-                                    month: m,
-                                    year: y,
-                                    cmo: cmo,
-                                    currDay: isCurrDay(dayNbr, m, y, cmo),
-                                    sun: week.length === 0
+                                    day: dayNbr, month: m, year: y, cmo: cmo, currDay: isCurrDay(dayNbr, m, y, cmo), sun: week.length === sunIdx
                                 });
                                 dayNbr++;
                             }
@@ -343,12 +322,7 @@ angular.module('dpdaterangepicker', [])
                                     cmo = scope.cf.NEXT_MONTH;
                                 }
                                 week.push({
-                                    day: dayNbr,
-                                    month: m,
-                                    year: y,
-                                    cmo: cmo,
-                                    currDay: isCurrDay(dayNbr, m, y, cmo),
-                                    sun: week.length === 0
+                                    day: dayNbr, month: m, year: y, cmo: cmo, currDay: isCurrDay(dayNbr, m, y, cmo), sun: week.length === sunIdx
                                 });
                                 dayNbr++;
                             }
@@ -380,14 +354,22 @@ angular.module('dpdaterangepicker', [])
                 });
 
                 function init() {
+                    // Show grid value
+                    scope.showGrid = !angular.isUndefined(scope.options.showGrid) ? scope.options.showGrid : scope.cf.showGrid;
+
                     // Selection element height/width
                     scope.height = !angular.isUndefined(attrs.height) ? attrs.height : scope.height;
                     scope.width = !angular.isUndefined(attrs.width) ? attrs.width : scope.width;
 
-                    // Weekdays to calendar - check is sunday first day in configuration
+                    // Weekdays to calendar
                     var days = ['su', 'mo', 'tu', 'we', 'th', 'fr', 'sa'];
-                    for (var i in days) {
-                        scope.weekDays.push(getDayLabels()[days[i]]);
+                    dayIdx = days.indexOf(!angular.isUndefined(scope.options.firstDayOfWeek) ? scope.options.firstDayOfWeek : scope.cf.firstDayOfWeek);
+                    if(dayIdx !== -1) {
+                        var idx = dayIdx;
+                        for(var i = 0; i < days.length; i++) {
+                            scope.weekDays.push(getDayLabels()[days[idx]]);
+                            idx = days[idx] === 'sa' ? 0 : idx + 1;
+                        }
                     }
 
                     // Initial selected date range

@@ -29,6 +29,9 @@ sampleapp.controller('samplectrl', function ($scope, dpdaterangeConfig) {
 
     // Configuration of the dpdaterangepicker
     $scope.opt = {
+        firstDayOfWeek: 'mo',
+        showGrid: false,
+        dateFormat: 'dd.mm.yyyy',
         /*
          initSelectorMonth: {
              year: 2012,

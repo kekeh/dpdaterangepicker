@@ -1,18 +1,18 @@
 /* 
 *  Name: dpdaterangepicker 
 *  Description: Date range picker - AngularJS reusable UI component 
-*  Version: 0.1.2 
+*  Version: 0.1.3 
 *  Author: kekeh 
 *  Homepage: http://kekeh.github.io/dpdaterangepicker 
 *  License: MIT 
-*  Date: 2015-08-24 
+*  Date: 2015-09-06 
 */ 
-angular.module('template-dpdaterangepicker-0.1.2.html', []).run(['$templateCache', function($templateCache) {
+angular.module('template-dpdaterangepicker-0.1.3.html', []).run(['$templateCache', function($templateCache) {
   $templateCache.put("templates/dpdaterangepicker.html",
-    "<div class=dpdaterangepicker ng-style=\"{'width':width}\"><div class=vstooltip ng-show=showTooltip ng-mouseleave=\"showTooltip=false\"><span class=vstooltiptext>{{selectedRangeTxt}}</span></div><div class=dpselectiongroup ng-click=picker($event)><span class=dpselection ng-style=\"{'line-height': height}\" ng-click=picker($event) tooltip-window>{{selectedRangeTxt}}</span> <span class=dpselbtngroup ng-style=\"{'height': height}\"><button class=dpbtnclear ng-show=\"selectedRangeTxt.length > 0\" ng-click=clearSelection($event)><span class=\"icon icon-cross\"></span></button> <button class=dpbtnpicker ng-click=picker($event)><span class=\"icon icon-calendar\"></span></button></span></div><div class=dpselector ng-if=showSelector><div class=dptitlearea ng-class=\"{'dptitlerangeok': rangeOk, 'dptitlerangenotok': !rangeOk}\"><div class=dptitleareatxt>{{titleTxt}}</div></div><table class=dpheader><tr><td><div style=float:left><div class=dpheaderbtn ng-click=prevMonth()><span class=\"icon icon-left\"></span></div><div class=dpheadermonthtxt ng-bind=visibleMonth.monthTxt></div><div class=dpheaderbtn ng-click=nextMonth()><span class=\"icon icon-right\"></span></div></div></td><td><button class=dpheadertodaybtn ng-click=today()>{{options.buttons.todayBtnText!==undefined?options.buttons.todayBtnText:cf.buttons.todayBtnText}}</button></td><td><div style=float:right><div class=dpheaderbtn ng-click=prevYear()><span class=\"icon icon-left\"></span></div><div class=dpheaderyeartxt ng-bind=visibleMonth.year></div><div class=dpheaderbtn ng-click=nextYear()><span class=\"icon icon-right\"></span></div></div></td></tr></table><table class=dptable><thead><tr><th ng-repeat=\"d in weekDays track by $index\" ng-bind=d></th></tr></thead><tbody><tr ng-repeat=\"w in dates track by $index\"><td ng-repeat=\"d in w track by $index\" ng-class=\"{'dpcurrmonth':d.cmo===cf.CURR_MONTH,'dpcurrday':d.currDay && (options.currDayHighlight!==undefined?options.currDayHighlight:cf.currDayHighlight),'dpselectedday':selectedDate.day===d.day && selectedDate.month===d.month && selectedDate.year===d.year && d.cmo===cf.CURR_MONTH}\" ng-click=cellClicked(d)><span style=background-color:inherit ng-class=\"{'dpprevmonth':d.cmo===cf.PREV_MONTH,'dpcurrmonth':d.cmo===cf.CURR_MONTH,'dpnextmonth':d.cmo===cf.NEXT_MONTH,'dpsunday':d.sun && d.cmo===cf.CURR_MONTH && (options.sunHighlight!==undefined?options.sunHighlight:cf.sunHighlight)}\" ng-bind=d.day></span></td></tr></tbody></table><div class=dpfooterarea><button class=dpfooterbtn ng-class=\"{'dpbtndisable': !rangeOk}\" ng-disabled=!rangeOk ng-show=beginDateStep ng-click=toEndDate()>{{options.buttons.nextBtnText!==undefined?options.buttons.nextBtnText:cf.buttons.nextBtnText}}</button> <button class=dpfooterbtn ng-show=!beginDateStep ng-click=toBeginDate()>{{options.buttons.prevBtnText!==undefined?options.buttons.prevBtnText:cf.buttons.prevBtnText}}</button> <button class=dpfooterbtn ng-class=\"{'dpbtndisable': !rangeOk}\" ng-disabled=!rangeOk ng-show=!beginDateStep ng-click=accept()>{{options.buttons.okBtnText!==undefined?options.buttons.okBtnText:cf.buttons.okBtnText}}</button></div></div></div>");
+    "<div class=dpdaterangepicker ng-style=\"{'width':width}\"><div class=vstooltip ng-show=showTooltip ng-mouseleave=\"showTooltip=false\"><span class=vstooltiptext>{{selectedRangeTxt}}</span></div><div class=dpselectiongroup ng-click=picker($event)><span class=dpselection ng-style=\"{'line-height': height}\" ng-click=picker($event) tooltip-window>{{selectedRangeTxt}}</span> <span class=dpselbtngroup ng-style=\"{'height': height}\"><button class=dpbtnclear ng-show=\"selectedRangeTxt.length > 0\" ng-click=clearSelection($event)><span class=\"icon icon-cross\"></span></button> <button class=dpbtnpicker ng-click=picker($event)><span class=\"icon icon-calendar\"></span></button></span></div><div class=dpselector ng-if=showSelector><div class=dptitlearea ng-class=\"{'dptitlerangeok': rangeOk, 'dptitlerangenotok': !rangeOk}\"><div class=dptitleareatxt>{{titleTxt}}</div></div><table class=dpheader><tr><td><div style=float:left><div class=dpheaderbtn ng-click=prevMonth()><span class=\"icon icon-left\"></span></div><div class=dpheadermonthtxt ng-bind=visibleMonth.monthTxt></div><div class=dpheaderbtn ng-click=nextMonth()><span class=\"icon icon-right\"></span></div></div></td><td><button class=dpheadertodaybtn ng-click=today()>{{options.buttons.todayBtnText!==undefined?options.buttons.todayBtnText:cf.buttons.todayBtnText}}</button></td><td><div style=float:right><div class=dpheaderbtn ng-click=prevYear()><span class=\"icon icon-left\"></span></div><div class=dpheaderyeartxt ng-bind=visibleMonth.year></div><div class=dpheaderbtn ng-click=nextYear()><span class=\"icon icon-right\"></span></div></div></td></tr></table><table class=dptable><thead><tr><th ng-class=\"{'dpnogrid': !showGrid}\" ng-repeat=\"d in weekDays track by $index\" ng-bind=d></th></tr></thead><tbody><tr ng-repeat=\"w in dates track by $index\"><td ng-repeat=\"d in w track by $index\" ng-class=\"{'dpnogrid':!showGrid,'dpcurrmonth':d.cmo===cf.CURR_MONTH,'dpcurrday':d.currDay && (options.currDayHighlight!==undefined?options.currDayHighlight:cf.currDayHighlight),'dpselectedday':selectedDate.day===d.day && selectedDate.month===d.month && selectedDate.year===d.year && d.cmo===cf.CURR_MONTH}\" ng-click=cellClicked(d)><span style=background-color:inherit ng-class=\"{'dpprevmonth':d.cmo===cf.PREV_MONTH,'dpcurrmonth':d.cmo===cf.CURR_MONTH,'dpnextmonth':d.cmo===cf.NEXT_MONTH,'dpsunday':d.sun && d.cmo===cf.CURR_MONTH && (options.sunHighlight!==undefined?options.sunHighlight:cf.sunHighlight)}\" ng-bind=d.day></span></td></tr></tbody></table><div class=dpfooterarea><button class=dpfooterbtn ng-class=\"{'dpbtndisable': !rangeOk}\" ng-disabled=!rangeOk ng-show=beginDateStep ng-click=toEndDate()>{{options.buttons.nextBtnText!==undefined?options.buttons.nextBtnText:cf.buttons.nextBtnText}}</button> <button class=dpfooterbtn ng-show=!beginDateStep ng-click=toBeginDate()>{{options.buttons.prevBtnText!==undefined?options.buttons.prevBtnText:cf.buttons.prevBtnText}}</button> <button class=dpfooterbtn ng-class=\"{'dpbtndisable': !rangeOk}\" ng-disabled=!rangeOk ng-show=!beginDateStep ng-click=accept()>{{options.buttons.okBtnText!==undefined?options.buttons.okBtnText:cf.buttons.okBtnText}}</button></div></div></div>");
 }]);
 
-angular.module('dpdaterangepicker', ["template-dpdaterangepicker-0.1.2.html"])
+angular.module('dpdaterangepicker', ["template-dpdaterangepicker-0.1.3.html"])
 
 /**
  * @ngdoc object
@@ -21,30 +21,11 @@ angular.module('dpdaterangepicker', ["template-dpdaterangepicker-0.1.2.html"])
  */
     .constant('dpdaterangeConfig', {
         // Configurable values with default value
-        monthLabels: {
-            1: 'Jan',
-            2: 'Feb',
-            3: 'Mar',
-            4: 'Apr',
-            5: 'May',
-            6: 'Jun',
-            7: 'Jul',
-            8: 'Aug',
-            9: 'Sep',
-            10: 'Oct',
-            11: 'Nov',
-            12: 'Dec'
-        },
-        dayLabels: {
-            su: 'Sun',
-            mo: 'Mon',
-            tu: 'Tue',
-            we: 'Wed',
-            th: 'Thu',
-            fr: 'Fri',
-            sa: 'Sat'
-        },
+        monthLabels: {1: 'Jan', 2: 'Feb', 3: 'Mar', 4: 'Apr', 5: 'May', 6: 'Jun', 7: 'Jul', 8: 'Aug', 9: 'Sep', 10: 'Oct', 11: 'Nov', 12: 'Dec'},
+        dayLabels: {su: 'Sun', mo: 'Mon', tu: 'Tue', we: 'Wed', th: 'Thu', fr: 'Fri', sa: 'Sat'},
         dateFormat: 'yyyy-mm-dd',
+        firstDayOfWeek: 'su',
+        showGrid: true,
         buttons: {
             todayBtnText: 'Today',
             nextBtnText: 'Next',
@@ -94,6 +75,7 @@ angular.module('dpdaterangepicker', ["template-dpdaterangepicker-0.1.2.html"])
                 scope.visibleMonth = {monthTxt: '', monthNbr: 0, year: 0};
                 scope.width = scope.cf.WIDTH, scope.height = scope.cf.HEIGHT;
 
+                var dayIdx = 0;
                 var selectedBeginDate = {day: 0, month: 0, year: 0};
                 var today = new Date();
 
@@ -284,7 +266,13 @@ angular.module('dpdaterangepicker', ["template-dpdaterangepicker-0.1.2.html"])
                     d.setDate(1);
                     d.setMonth(m - 1);
                     d.setYear(y);
-                    return d.getDay();
+                    var idx = d.getDay() + sundayIdx();
+                    return idx >= 7 ? idx - 7 : idx;
+                }
+
+                function sundayIdx() {
+                    // Index of Sunday day
+                    return dayIdx > 0 ? 7 - dayIdx : 0;
                 }
 
                 function daysInMonth(m, y) {
@@ -314,6 +302,7 @@ angular.module('dpdaterangepicker', ["template-dpdaterangepicker-0.1.2.html"])
                     var monthStart = monthStartIdx(y, m);
                     var dInThisM = daysInMonth(m, y);
                     var dInPrevM = daysInPrevMonth(m, y);
+                    var sunIdx = sundayIdx();
 
                     var dayNbr = 1;
                     var cmo = scope.cf.PREV_MONTH;
@@ -325,12 +314,7 @@ angular.module('dpdaterangepicker', ["template-dpdaterangepicker-0.1.2.html"])
                             // Previous month
                             for (var j = pm; j <= dInPrevM; j++) {
                                 week.push({
-                                    day: j,
-                                    month: m,
-                                    year: y,
-                                    cmo: cmo,
-                                    currDay: isCurrDay(j, m, y, cmo),
-                                    sun: week.length === 0
+                                    day: j, month: m, year: y, cmo: cmo, currDay: isCurrDay(j, m, y, cmo), sun: week.length === sunIdx
                                 });
                             }
                             cmo = scope.cf.CURR_MONTH;
@@ -338,12 +322,7 @@ angular.module('dpdaterangepicker', ["template-dpdaterangepicker-0.1.2.html"])
                             var daysLeft = 7 - week.length;
                             for (var j = 0; j < daysLeft; j++) {
                                 week.push({
-                                    day: dayNbr,
-                                    month: m,
-                                    year: y,
-                                    cmo: cmo,
-                                    currDay: isCurrDay(dayNbr, m, y, cmo),
-                                    sun: week.length === 0
+                                    day: dayNbr, month: m, year: y, cmo: cmo, currDay: isCurrDay(dayNbr, m, y, cmo), sun: week.length === sunIdx
                                 });
                                 dayNbr++;
                             }
@@ -357,12 +336,7 @@ angular.module('dpdaterangepicker', ["template-dpdaterangepicker-0.1.2.html"])
                                     cmo = scope.cf.NEXT_MONTH;
                                 }
                                 week.push({
-                                    day: dayNbr,
-                                    month: m,
-                                    year: y,
-                                    cmo: cmo,
-                                    currDay: isCurrDay(dayNbr, m, y, cmo),
-                                    sun: week.length === 0
+                                    day: dayNbr, month: m, year: y, cmo: cmo, currDay: isCurrDay(dayNbr, m, y, cmo), sun: week.length === sunIdx
                                 });
                                 dayNbr++;
                             }
@@ -394,14 +368,22 @@ angular.module('dpdaterangepicker', ["template-dpdaterangepicker-0.1.2.html"])
                 });
 
                 function init() {
+                    // Show grid value
+                    scope.showGrid = !angular.isUndefined(scope.options.showGrid) ? scope.options.showGrid : scope.cf.showGrid;
+
                     // Selection element height/width
                     scope.height = !angular.isUndefined(attrs.height) ? attrs.height : scope.height;
                     scope.width = !angular.isUndefined(attrs.width) ? attrs.width : scope.width;
 
-                    // Weekdays to calendar - check is sunday first day in configuration
+                    // Weekdays to calendar
                     var days = ['su', 'mo', 'tu', 'we', 'th', 'fr', 'sa'];
-                    for (var i in days) {
-                        scope.weekDays.push(getDayLabels()[days[i]]);
+                    dayIdx = days.indexOf(!angular.isUndefined(scope.options.firstDayOfWeek) ? scope.options.firstDayOfWeek : scope.cf.firstDayOfWeek);
+                    if(dayIdx !== -1) {
+                        var idx = dayIdx;
+                        for(var i = 0; i < days.length; i++) {
+                            scope.weekDays.push(getDayLabels()[days[idx]]);
+                            idx = days[idx] === 'sa' ? 0 : idx + 1;
+                        }
                     }
 
                     // Initial selected date range
