@@ -36,6 +36,8 @@ sampleapp.controller('samplectrl', function ($scope) {
          }
          },
          */
+        dateFormat: 'dd.mm.yyyy',
+        firstDayOfWeek: 'mo',
         dateRangeSelectCb: onDateRangeSelect
     };
 });
