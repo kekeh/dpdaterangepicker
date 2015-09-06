@@ -257,6 +257,7 @@
     text-align: center;
     display: table-cell;
     vertical-align: middle;
+    font-weight: bold;
 }
 
 .dpdaterangepicker .dpbtnclear:focus,
